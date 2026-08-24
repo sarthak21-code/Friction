@@ -36,8 +36,27 @@ export default function ExecutiveReportModal({
 
 const handlePrintPdf = () => {
   setDownloading(true);
-  printExecutiveReport(reportParams);
-  setDownloading(false);
+
+  const printWindow = window.open("", "_blank");
+
+  if (!printWindow) {
+    setDownloading(false);
+    alert("Pop-up blocked. Please allow pop-ups for FRICTION.");
+    return;
+  }
+
+  const html = generateExecutiveReportHtml(reportParams);
+
+  printWindow.document.open();
+  printWindow.document.write(html);
+  printWindow.document.close();
+
+  printWindow.focus();
+
+  setTimeout(() => {
+    printWindow.print();
+    setDownloading(false);
+  }, 400);
 };
 
   const handleDownloadHtmlFile = () => {

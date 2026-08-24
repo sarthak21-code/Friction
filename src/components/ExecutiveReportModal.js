@@ -34,13 +34,11 @@ export default function ExecutiveReportModal({
     annualHoursWasted,
   };
 
-  const handlePrintPdf = () => {
-    setDownloading(true);
-    setTimeout(() => {
-      printExecutiveReport(reportParams);
-      setDownloading(false);
-    }, 300);
-  };
+const handlePrintPdf = () => {
+  setDownloading(true);
+  printExecutiveReport(reportParams);
+  setDownloading(false);
+};
 
   const handleDownloadHtmlFile = () => {
     setDownloading(true);

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { generateExecutiveReportHtml, printExecutiveReport } from "@/lib/pdfReportGenerator";
+import { generateExecutiveReportHtml } from "@/lib/pdfReportGenerator";
 import { formatCurrencyValue } from "@/lib/constants";
 
 export default function ExecutiveReportModal({
@@ -37,26 +37,59 @@ export default function ExecutiveReportModal({
 const handlePrintPdf = () => {
   setDownloading(true);
 
-  const printWindow = window.open("", "_blank");
+  const html = generateExecutiveReportHtml(reportParams);
 
-  if (!printWindow) {
+  // Create a hidden iframe instead of opening a popup.
+  // This avoids Chrome's popup blocker completely.
+  const iframe = document.createElement("iframe");
+
+  iframe.style.position = "fixed";
+  iframe.style.right = "0";
+  iframe.style.bottom = "0";
+  iframe.style.width = "0";
+  iframe.style.height = "0";
+  iframe.style.border = "0";
+  iframe.style.visibility = "hidden";
+
+  document.body.appendChild(iframe);
+
+  const printWindow = iframe.contentWindow;
+  const printDocument = iframe.contentDocument;
+
+  if (!printWindow || !printDocument) {
+    document.body.removeChild(iframe);
     setDownloading(false);
-    alert("Pop-up blocked. Please allow pop-ups for FRICTION.");
+    alert("Unable to prepare the PDF report. Please try again.");
     return;
   }
 
-  const html = generateExecutiveReportHtml(reportParams);
+  printDocument.open();
+  printDocument.write(html);
+  printDocument.close();
 
-  printWindow.document.open();
-  printWindow.document.write(html);
-  printWindow.document.close();
-
-  printWindow.focus();
-
-  setTimeout(() => {
-    printWindow.print();
+  const cleanup = () => {
     setDownloading(false);
-  }, 400);
+
+    setTimeout(() => {
+      if (document.body.contains(iframe)) {
+        document.body.removeChild(iframe);
+      }
+    }, 500);
+  };
+
+  printWindow.onafterprint = cleanup;
+
+  // Wait for the generated report to finish rendering.
+  setTimeout(() => {
+    try {
+      printWindow.focus();
+      printWindow.print();
+    } catch (error) {
+      console.error("FRICTION print error:", error);
+      cleanup();
+      alert("Unable to open the print dialog. Please try again.");
+    }
+  }, 500);
 };
 
   const handleDownloadHtmlFile = () => {

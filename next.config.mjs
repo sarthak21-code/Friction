@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  /* config options here */
+  serverExternalPackages: ["@resvg/resvg-js"],
 };
 
 export default nextConfig;

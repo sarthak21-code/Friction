@@ -461,16 +461,18 @@ export default function StarterCodeModal({
               Close
             </button>
 
-            <Link
-              href={`/guide?opportunity=${slug}`}
-              className="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl bg-[#111] hover:bg-neutral-800 text-white text-xs font-bold uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-xs cursor-pointer"
-            >
-              <span>Open Step-by-Step Guide</span>
-              <span className="text-orange-400">→</span>
-            </Link>
+          <a
+  href={`/guide?opportunity=${slug}`}
+  onClick={onClose}
+  className="flex-1 sm:flex-initial px-5 py-2.5 rounded-xl bg-[#111] hover:bg-neutral-800 text-white text-xs font-bold uppercase tracking-wider transition flex items-center justify-center gap-2 shadow-xs cursor-pointer"
+>
+  <span>Open Step-by-Step Guide</span>
+  <span className="text-orange-400">→</span>
+</a>
           </div>
         </div>
       </div>
     </div>
   );
 }
+

@@ -397,10 +397,6 @@ ${askAnswer.pro_tip || ""}`;
 
         workflow = parsed.workflow || "";
 
-        // Hydrating from sessionStorage on mount — a legitimate sync with an
-        // external system, not a derivable render value — so
-        // set-state-in-effect is intentionally suppressed here.
-        // eslint-disable-next-line react-hooks/set-state-in-effect
         setRawAnalysis(analysis);
         setRawWorkflow(workflow);
 
@@ -553,7 +549,7 @@ ${askAnswer.pro_tip || ""}`;
             </h2>
 
             <p className="text-sm text-neutral-600 mt-2 leading-relaxed">
-              We couldn&apos;t locate this specific workflow
+              We couldn't locate this specific workflow
               recommendation. Please return to the dashboard and
               select an opportunity from your analysis report.
             </p>
@@ -693,7 +689,7 @@ ${askAnswer.pro_tip || ""}`;
             </div>
 
             <h3 className="text-2xl font-bold tracking-tight text-[#111]">
-              What We&apos;re Fixing
+              What We're Fixing
             </h3>
           </div>
 
@@ -1340,7 +1336,7 @@ ${askAnswer.pro_tip || ""}`;
                 onClick={() => setCompleted(true)}
                 className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-[#111] text-white font-bold text-xs uppercase tracking-wider hover:bg-neutral-800 transition shadow-sm cursor-pointer inline-flex items-center justify-center gap-2"
               >
-                <span>I&apos;ve completed this</span>
+                <span>I've completed this</span>
                 <span>→</span>
               </button>
             </div>
@@ -1355,7 +1351,7 @@ ${askAnswer.pro_tip || ""}`;
               </h3>
 
               <p className="text-xs sm:text-sm text-neutral-600 leading-relaxed">
-                Great job! You&apos;ve documented and planned the
+                Great job! You've documented and planned the
                 resolution for this bottleneck. You can return to
                 your dashboard to review other optimization
                 opportunities.

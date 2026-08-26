@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { FrictionProvider } from "@/context/FrictionContext";
 import Navigation from "@/components/Navigation";
+import { Analytics } from "@vercel/analytics/next";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,6 +30,8 @@ export default function RootLayout({ children }) {
           <Navigation />
           <div className="flex-1 flex flex-col">{children}</div>
         </FrictionProvider>
+
+        <Analytics />
       </body>
     </html>
   );
